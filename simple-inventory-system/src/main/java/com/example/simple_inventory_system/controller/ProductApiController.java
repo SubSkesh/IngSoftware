@@ -5,7 +5,7 @@ import com.example.simple_inventory_system.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;gi
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -17,7 +17,7 @@ public class ProductApiController {
 
     @GetMapping
     public List<Product> getAllProducts() {
-        return productRepository.findAll();
+        return (List<Product>) productRepository.findAll();
     }
 
     @GetMapping("/{id}")
