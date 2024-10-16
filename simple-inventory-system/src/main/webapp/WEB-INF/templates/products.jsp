@@ -17,17 +17,19 @@
         </div>
     </div>
 
-    <fmt:setLocale value="it_IT" />
+    <c:if test="${not empty error}">
+        <div class="error-message">${error}</div>
+    </c:if>
 
     <form id="addProductForm" action="${pageContext.request.contextPath}/addProduct" method="post" class="add-product-form">
         <label for="name">Name:</label>
         <input type="text" id="name" name="name" required>
 
         <label for="quantity">Quantity:</label>
-        <input type="number" id="quantity" name="quantity" required>
+        <input type="number" id="quantity" name="quantity" required min="1" title="Quantity must be positive">
 
         <label for="price">Price:</label>
-        <input type="number" step="0.01" id="price" name="price" required>
+        <input type="number" step="0.01" id="price" name="price" required min="0">
 
         <button type="submit">Add Product</button>
     </form>

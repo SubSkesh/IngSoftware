@@ -36,7 +36,17 @@ public class ProductController {
     public String addProduct(@RequestParam String name,
                              @RequestParam int quantity,
                              @RequestParam double price,
-                             Principal principal) {
+                             Principal principal,
+                             Model model) {
+        if (price < 0) {
+            model.addAttribute("error", "Price Cannot be less than 0");
+        }
+
+            if (quantity < 1) {
+            model.addAttribute("error", "Quantity must be at least 1.");
+            return "products";
+        }
+
         User user = userService.findByUsername(principal.getName());
         Product product = new Product(name, quantity, price, user);
         productRepository.save(product);
@@ -67,7 +77,13 @@ public class ProductController {
                                 @RequestParam String name,
                                 @RequestParam int quantity,
                                 @RequestParam double price,
-                                Principal principal) {
+                                Principal principal,
+                                Model model) {
+        if (quantity < 1) {
+            model.addAttribute("error", "Quantity must be at least 1.");
+            return "editProduct";
+        }
+
         Product product = productRepository.findById(id).orElse(null);
         if (product != null && product.getUser().getUsername().equals(principal.getName())) {
             product.setName(name);

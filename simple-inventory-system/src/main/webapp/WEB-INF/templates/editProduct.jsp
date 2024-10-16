@@ -17,6 +17,11 @@
     </div>
 
     <h2>Modify Product</h2>
+
+    <c:if test="${not empty error}">
+        <div class="error-message">${error}</div>
+    </c:if>
+
     <form action="${pageContext.request.contextPath}/updateProduct" method="post" class="add-product-form">
         <input type="hidden" name="id" value="${product.id}">
 
@@ -24,10 +29,10 @@
         <input type="text" id="name" name="name" value="${product.name}" required>
 
         <label for="quantity">Quantity:</label>
-        <input type="number" id="quantity" name="quantity" value="${product.quantity}" required>
+        <input type="number" id="quantity" name="quantity" value="${product.quantity}" required min="1">
 
         <label for="price">Price:</label>
-        <input type="number" id="price" step="0.01" name="price" value="${product.price}" required>
+        <input type="number" id="price" step="0.01" name="price" value="${product.price}" required min="0">
 
         <button type="submit">Update Product</button>
     </form>

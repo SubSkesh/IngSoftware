@@ -29,6 +29,8 @@ public class SecurityConfig {
                 .antMatchers("/api/products/**").authenticated()
                 .anyRequest().authenticated()
                 .and()
+                .httpBasic()  // Aggiungi questo per supportare l'autenticazione Basic
+                .and()
                 .formLogin()
                 .loginPage("/login")
                 .defaultSuccessUrl("/products", true)
