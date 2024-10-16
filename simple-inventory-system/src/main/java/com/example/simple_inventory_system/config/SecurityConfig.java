@@ -22,33 +22,36 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        // Definiamo le regole di sicurezza per l'applicazione
         http
-                .csrf().disable()
+                .csrf().disable() // Disattiviamo la protezione CSRF per semplificare le cose (non sempre ideale in produzione)
                 .authorizeRequests()
-                .antMatchers("/register", "/login", "/static/**").permitAll() // Permetti accesso alla registrazione e al login
-                .antMatchers("/api/products/**").authenticated()
-                .anyRequest().authenticated()
+                .antMatchers("/register", "/login", "/static/**").permitAll() // Chiunque può accedere alle pagine di registrazione e login
+                .antMatchers("/api/products/**").authenticated() // Per accedere alle API dei prodotti è necessario essere autenticati
+                .anyRequest().authenticated() // Tutto il resto richiede autenticazione
                 .and()
-                .httpBasic()  // Aggiungi questo per supportare l'autenticazione Basic
+                .httpBasic() // Abilita l'autenticazione Basic (utente e password nell'header della richiesta)
                 .and()
                 .formLogin()
-                .loginPage("/login")
-                .defaultSuccessUrl("/products", true)
-                .failureUrl("/login?error=true") // Se le credenziali sono errate, reindirizza qui
+                .loginPage("/login") // Usiamo una pagina personalizzata per il login
+                .defaultSuccessUrl("/products", true) // Dopo un login riuscito, reindirizziamo alla pagina dei prodotti
+                .failureUrl("/login?error=true") // Se il login fallisce, rimandiamo alla pagina di login con un messaggio di errore
                 .permitAll()
                 .and()
                 .logout()
-                .permitAll();
+                .permitAll(); // Chiunque può effettuare il logout
         return http.build();
     }
 
     @Bean
     public PasswordEncoder passwordEncoder() {
+        // Usiamo BCrypt per criptare le password. Questo rende difficile decifrarle se vengono compromesse.
         return new BCryptPasswordEncoder();
     }
 
     @Bean
     public DaoAuthenticationProvider authenticationProvider() {
+        // Configuriamo l'autenticazione usando il nostro servizio utente e BCrypt
         DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
         authProvider.setUserDetailsService((UserDetailsService) userService);
         authProvider.setPasswordEncoder(passwordEncoder());
@@ -57,6 +60,7 @@ public class SecurityConfig {
 
     @Autowired
     public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+        // Indichiamo al sistema di usare il nostro provider di autenticazione
         auth.authenticationProvider(authenticationProvider());
     }
 }
