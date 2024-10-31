@@ -26,7 +26,7 @@
         <input type="hidden" name="id" value="${product.id}">
 
         <label for="name">Name:</label>
-        <input type="text" id="name" name="name" value="${product.name}" required>
+        <input type="text" id="name" name="name" value="${product.name}" required >
 
         <label for="quantity">Quantity:</label>
         <input type="number" id="quantity" name="quantity" value="${product.quantity}" required min="1">
