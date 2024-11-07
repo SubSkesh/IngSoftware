@@ -8,7 +8,13 @@
 </head>
 <body>
 <div class="container">
+    <!-- logo universita-->
+    <div class="header">
+
     <h2>Register</h2>
+        <img src="${pageContext.request.contextPath}/static/images/logo_unife.png" alt="logo unife" style="width: 150px; height: 73px; margin-bottom: 20px;">
+
+    </div>
     <form action="${pageContext.request.contextPath}/register" method="post">
         <div>
             <label for="username">Username:</label>
