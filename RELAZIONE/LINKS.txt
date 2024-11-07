@@ -1,0 +1,16 @@
+OSCAR COSTANZELLI #158977 Progetto Ingegneria del Software 2023/2024
+
+
+Componenenti del team:
+-OSCAR COSTANZELLI
+
+
+Link Trello:
+https://trello.com/b/38uddgUy/analisi-dei-requisiti-organizzazione-idee
+https://trello.com/b/dWWNuQ50/progetto-gestione-inventario
+
+Link Miro:
+https://miro.com/app/board/uXjVLRGtkeQ=/
+
+Repo GitHub:
+https://github.com/SubSkesh/IngSoftware/tree/master
